@@ -3,6 +3,7 @@ package com.bezkoder.spring.jpa.h2.service;
 
 import java.io.File;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class EmailService {
 
     @Autowired
     JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
     public String sendEmail() {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -54,4 +57,26 @@ public class EmailService {
             return "Mail sent failed";
         }
     }
+
+   /* public void csendEmail(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+    }
+
+    */
+   public void sendEmail(String name, String email, String description) throws MessagingException {
+
+       MimeMessage message = javaMailSender.createMimeMessage();
+       MimeMessageHelper helper = new MimeMessageHelper(message);
+
+       helper.setTo("siiheb64@gmail.com");
+       helper.setFrom(email);
+       helper.setSubject("New Message from " + name);
+       helper.setText(description);
+
+       javaMailSender.send(message);
+   }
 }
