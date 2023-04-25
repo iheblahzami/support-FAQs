@@ -20,7 +20,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public String sendEmail() {
+  /*  public String sendEmail() {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom("siiheb64@gmail.com");

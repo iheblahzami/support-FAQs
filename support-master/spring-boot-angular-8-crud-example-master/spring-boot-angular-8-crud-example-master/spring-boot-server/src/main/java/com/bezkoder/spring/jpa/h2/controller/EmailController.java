@@ -21,7 +21,7 @@ public class EmailController {
     EmailService emailService;
     @Autowired
     private JavaMailSender javaMailSender;
-
+/*
     @GetMapping("/sendEmail")
     public String sendEmail() {
         return emailService.sendEmail();
@@ -32,7 +32,7 @@ public class EmailController {
         return emailService.sendEmailwithAttachment();
     }
 
-  /*  @PostMapping("/sendEmail")
+    @PostMapping("/sendEmail")
     public void csendEmail(@RequestBody EmailRequest emailRequest) throws MessagingException {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailRequest.getEmail());
