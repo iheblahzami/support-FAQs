@@ -1,17 +1,17 @@
 package com.bezkoder.spring.jpa.h2.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
-import com.bezkoder.spring.jpa.h2.model.EmailRequest;
+//import com.bezkoder.spring.jpa.h2.model.EmailRequest;
 import com.bezkoder.spring.jpa.h2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.websocket.server.PathParam;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +21,7 @@ public class EmailController {
     EmailService emailService;
     @Autowired
     private JavaMailSender javaMailSender;
-/*
+    /*
     @GetMapping("/sendEmail")
     public String sendEmail() {
         return emailService.sendEmail();
@@ -42,7 +42,7 @@ public class EmailController {
         javaMailSender.send(message);
     }
     */
-
+/*
     @PostMapping("/send-email")
     public ResponseEntity<String> sendEmail(@RequestParam String name, @RequestParam String email, @RequestParam String description) {
         try {
@@ -52,5 +52,39 @@ public class EmailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email: " + e.getMessage());
         }
     }
+
+ */
+    /*
+@PostMapping("/send-email")
+@ResponseBody
+public ResponseEntity<String> sendEmail( String to, String text, String subject) {
+    Email email = emailService.;
+    String text = "A new event has been created with the following details:\n\n" +
+            "Name: " + event.getNomEvent() + "\n" +
+            "Date: " + event.getDateDebutEvent() + "\n" +
+            "Location: " + event.getRegionEvent() + "\n" +
+            "Description: " + event.getDescriptionEvent() + "\n";
+    String subject = "New Event";
+    for (String to: recipients) {
+        eventService.sendMail(to, subject, text);
+    }
+
+        emailService.sendEmail(to, subject, text);
+
+    return ResponseEntity.ok("Email sent successfully!");
 }
 
+     */
+    @PostMapping( "/sendemail")
+    public String sendEmail() throws AddressException, MessagingException, IOException {
+        emailService .sendEmail();
+        //	sendingEmailApplication.sendEmailWithAttachment();
+        return "Email sent successfully";
+    }
+    @PostMapping( "/sendemailwithAtt")
+    public String sendEmailwithAtt() throws AddressException, MessagingException, IOException {
+       // emailService .sendEmail();
+        emailService.sendEmailWithAttachment();
+        return "Email sent successfully";
+    }
+}
